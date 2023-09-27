@@ -28,10 +28,10 @@ object Part5B {
 
 
   val source: List[Badge] = Source.fromResource("First6200Badges.xml").getLines().toList.drop(2).dropRight(1)
-    .map(_ => null.asInstanceOf[Badge]) // TODO: Replace this map such that it is filled with valid badges(see below)
-  //	.map(line => {
-  //		//// TODO: Fill this  method body
-  //	})
+    .map(line => {
+      val fields = line.split("\"").toList
+      Badge(fields(1).toInt, fields(3).toInt, fields(5), fields(7), fields(9).toInt, fields(11).toBoolean)
+    })
 
   /**
    * Again you can use this to get some output
@@ -47,15 +47,18 @@ object Part5B {
    *
    * What is the easiest attainable badge? Output a tuple of its name and nr
    */
-  def easiestAttainableBadge(input: List[Badge]): (String, Int) = ???
+  def easiestAttainableBadge(input: List[Badge]): (String, Int) = input.groupBy(_.name).mapValues(_.size).maxBy(_._2);
 
   /** Q30 (3p)
    *
    * Return a tuple of tuples of the least productive and most productive
    * year, together with the nr of badges earned
    */
-  def yearOverview(input: List[Badge]): ((Int, Int), (Int, Int)) = ???
+  def yearOverview(input: List[Badge]): ((Int, Int), (Int, Int)) = {
+    val inter = input.groupBy(a => a.badgeDate.split("-")(0)).toList.sortBy(a => a._2.size)
 
+    ((inter.head._1.toInt, inter.head._2.size), (inter.last._1.toInt, inter.last._2.size))
+  }
   // END OF PART 5B
 
 }

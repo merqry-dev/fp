@@ -65,7 +65,7 @@ object Part5A {
    * @param xs the list of patrons
    * @return the number of people who didn't supply their age
    */
-  def noAge(xs: List[Array[String]]): Int = xs.filter(a => a(4) == "").size
+  def noAge(xs: List[Array[String]]): Int = xs.count(a => a(4) == "")
 
   /** Q26 (3p)
    * Output the id, age range and notice preference as a tuple of the patron with the highest number of checkouts
@@ -76,7 +76,11 @@ object Part5A {
    * Output the patron type and number of patrons as a map and make sure the patrons satisfy the following condition:
    * - Patrons who indicated to be contacted by email but have not provided that email
    */
-  def missing_email(xs: List[Array[String]]): Map[String, Int] = xs.filter(a => a(8) == "email" && a(9) == "FALSE").groupBy(a => a(1)).map(a => (a._1, a._2.size)) //!!
+  def missing_email (xs: List[Array[String]]): Map[String, Int]
+  =
+  {
+    Map(xs.filter(a => a(8) == "email" && a(9) == "false").groupBy(a => a(1)).toList map { a => (a._1, a._2.size) }: _*)
+  }
 
   // END OF PART 5A
 }

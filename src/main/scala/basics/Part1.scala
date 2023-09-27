@@ -79,7 +79,7 @@ object Part1 {
    *
    * Write the method body for determining whether a year is a leap year
    */
-  def leapYear(i: Int): Boolean = i % 4 == 0 // TODO: change this method //!!
+  def leapYear(i: Int): Boolean = ((i % 400 ==0) || ((i % 4 == 0) && (i % 100 != 0)))// TODO: change this method //!!
 
   /** Q2 (4p)
    * You've seen an example of anonymous functions in Scala.

@@ -2,6 +2,7 @@ package dataset
 
 import java.text.SimpleDateFormat
 import java.util.SimpleTimeZone
+import java.util.Date
 import dataset.util.Commit.Commit
 import org.json4s.native.Serialization
 import org.json4s.{Formats, NoTypeHints}
@@ -37,7 +38,15 @@ object Part5C {
    *
    * Hint: for the time, use `SimpleDateFormat` and `SimpleTimeZone`.
    */
-  def mostProductivePart(input: List[Commit]): (String, Int) = ???
+  def mostProductivePart(input: List[Commit]): (String, Int)  = {
+    val sdf = new SimpleDateFormat("HH");
+    sdf.setTimeZone(new SimpleTimeZone(0, "UTC"));
+    List(("morning", input.map(x => sdf.format(x.commit.committer.date).toInt).count(x => x >= 5 && x < 12)),
+        ("afternoon", input.map(x => sdf.format(x.commit.committer.date).toInt).count(x => x >= 12 && x < 17)),
+        ("evening", input.map(x => sdf.format(x.commit.committer.date).toInt).count(x => x >= 17 && x < 21)),
+        ("night", input.map(x => sdf.format(x.commit.committer.date).toInt).count(x => x >= 21 || x < 5))).maxBy(_._2)
+  };
+
 
   // END OF PART 5C & END OF THE LAB ^_^
   // Hope you enjoyed it and good luck with the next assignment!
