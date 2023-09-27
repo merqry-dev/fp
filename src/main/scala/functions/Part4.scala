@@ -182,7 +182,7 @@ object Part4 {
    * Example:
    * reverseUsingFold(List.range(-3,2)) // List(1, 0, -1, -2, -3)
    */
-  def reverseUsingFold[A](nrs: List[A]): List[A] = ???
+  def reverseUsingFold[A](nrs: List[A]): List[A] = nrs.foldLeft(List[A]())((a,b) => b :: a)
 
   /** Q17 (5p)
    * find the second largest element in the list of Ints, if it exists
@@ -204,7 +204,7 @@ object Part4 {
    * Example:
    * countNumbers(List(1,2,1,2,1,2,3,4,4,4,4,4,4,4,4)) // Map(1 -> 3, 2 -> 3, 3 -> 1, 4 -> 8)
    */
-  def countNumbers(xs: List[Int]): Map[Int, Int] = ???
+  def countNumbers(xs: List[Int]): Map[Int, Int] = Map(xs map {a => (a, xs.count(b => b == a))} : _*)
 
   /** Q19 (2p)
    * Ai... 13 is always a bad number... A hacker infiltrated the Scala Deployment server and hacked the API
@@ -228,7 +228,13 @@ object Part4 {
    * specialPartition(List(List(-4,1,2), List(-4,-4,-6,1,2,4,4), List(-4,-4, -6, 1,2,8))) // true
    */
   // TODO: implement using API methods
-  def specialPartition(xs: List[List[Int]]): Boolean = ???
+  def specialPartition(xs: List[List[Int]]): Boolean = { //!!
+    val temp1 = xs.foldLeft(List[Int]())((a,b) => List.concat(a,b)).filter(a => a<0)
+    val num = temp1.size
+    val temp2 = (temp1.sum + num).abs
+
+    temp2 == xs.foldLeft(List[Int]())((a,b) => List.concat(a,b)).filter(a => a>0).sum
+  }
 
   val tudScrabblePlayers: List[(String, List[(String, Int)])] = List(
     ("Ola", List(("tree", 4), ("plant", 12), ("water", 10), ("earth", 9), ("heaven", 1))),
@@ -246,7 +252,10 @@ object Part4 {
    * in `tudScrabblePlayers` Ola, Burçu, and Georgios are good players.
    */
   // TODO: implement this method
-  def determineGoodPlayers(scrabblePlayers: List[(String, List[(String, Int)])]): List[String] = ???
+  def determineGoodPlayers(scrabblePlayers: List[(String, List[(String, Int)])]): List[String] = {
+
+    scrabblePlayers.filter(a => a._2.filter(b => b._1.length > 3).size > 0 && a._2.filter(b => b._1.length > 3).size == a._2.size).map(a => a._1)
+  }
 
   /** Q22 (3p)
    * determine from good Scrabble players who has an average value per word of over 7
@@ -276,7 +285,10 @@ object Part4 {
    *
    * val ss = List("a", "d", "f","g") // only "f"/"g" would be considered 'good'
    */
-  def goodSportStudents(studentResults: List[(String, String, Option[Int])], sportStudents: List[String]): List[String] = ???
+  def goodSportStudents(studentResults: List[(String, String, Option[Int])], sportStudents: List[String]): List[String] = {
+
+    sportStudents.filter(a => studentResults.filter(b => b._1 == a && b._3.isDefined && b._3.get >= 6) == studentResults.filter(b => b._1 == a))
+  }
 
   /** Q24 (5p)
    *

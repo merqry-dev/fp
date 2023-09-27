@@ -308,15 +308,21 @@ object Part2 {
    */
   // TODO implement method using pattern matching
   // a helper method which you've written yourself
-//  def myFilter[A](xs: List[A], f: A => Boolean): List[A] = {
-//    def helper(xs: Int, f: A => Boolean): Int = xs match{
-//
-//    };
-//    xs match {
-//    case Nil => Nil
-//    case a :: Nil => if(f(a)){a}
-//    case a :: tail => myFilter(tail)
-//  }}
+    def myFilter[A](xs: List[A], f: A => Boolean): List[A] = {
+      def helper(xs: List[A], ys: Int): List[A] = xs match {
+        case a :: tail if ys % 2 == 0 => helper(tail, ys+1)
+        case b :: tail if !(ys % 2 == 0) => b :: helper(tail, ys+1)
+        case Nil => Nil
+      }
+
+      xs match {
+        case Nil :: a :: tail if f(a) => helper(a :: myFilter(tail ,f), 0)
+        case Nil :: a :: tail if !f(a) => helper(myFilter(tail ,f), 0)
+        case b :: tail if f(b) => b :: myFilter(tail ,f)
+        case b :: tail if !f(b) => myFilter(tail ,f)
+        case Nil => Nil
+      }
+    }
 
   // END OF PART 2
 }

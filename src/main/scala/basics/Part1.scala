@@ -79,7 +79,7 @@ object Part1 {
    *
    * Write the method body for determining whether a year is a leap year
    */
-  def leapYear(i: Int): Boolean = i % 4 == 0// TODO: change this method
+  def leapYear(i: Int): Boolean = i % 4 == 0 // TODO: change this method //!!
 
   /** Q2 (4p)
    * You've seen an example of anonymous functions in Scala.
@@ -92,33 +92,33 @@ object Part1 {
    */
 
   // TODO: uncomment the following 3 vals, replace the ??? with lambda expressions (anonymous functions)
-  	val isEven = (i: Int) => i % 2 == 0 // tells whether given Int is even or not
-  	val isOdd = (i: Int) => i % 2 != 0 // same but this time if it's odd
-  	val timesTwo = (i: Int) => 2 * i   // takes an Int and doubles it
+  val isEven = (i: Int) => i % 2 == 0 // tells whether given Int is even or not
+  val isOdd = (i: Int) => i % 2 != 0 // same but this time if it's odd
+  val timesTwo = (i: Int) => 2 * i // takes an Int and doubles it
+
   //
-  def question2(): List[List[Int]] =
+  def question2(): List[List[Int]] = {
   // TODO change this method below:
+    // TODO:
+    // - Look up the List functions used in the Scala API
+    // - change the parameter type of f in both HOFS below
+    //   from ...... to the correct type
+    // - then uncomment this block and remove the `???`
+    def myFirstHOF(xs: List[Int], f: Int => Boolean): List[Int] =
+      xs.filter(f)
 
-  	{
-  		// TODO:
-  		// - Look up the List functions used in the Scala API
-  		// - change the parameter type of f in both HOFS below
-  		//   from ...... to the correct type
-      // - then uncomment this block and remove the `???`
-  		def myFirstHOF(xs: List[Int], f: Int => Boolean ) : List[Int] =
-  			xs.filter(f)
-  		def mySecondHOF(xs: List[Int], f: Int => Int ) : List[Int] =
-  			xs.map(f)
+    def mySecondHOF(xs: List[Int], f: Int => Int): List[Int] =
+      xs.map(f)
 
-  		val first = myFirstHOF(List(1,2,3,4), isEven)
-  		val second = myFirstHOF(List(1,2,3,4), isOdd)
-  		val third = mySecondHOF(List(10,11,12,13,14,15), timesTwo)
+    val first = myFirstHOF(List(1, 2, 3, 4), isEven)
+    val second = myFirstHOF(List(1, 2, 3, 4), isOdd)
+    val third = mySecondHOF(List(10, 11, 12, 13, 14, 15), timesTwo)
 
-  		val finalResult = List(first, second, third)
-  		finalResult
-  		// Scala returns the final expression, but if you just assigned it to
-  		// a variable the return type is Unit
-  	}
+    val finalResult = List(first, second, third)
+    finalResult
+    // Scala returns the final expression, but if you just assigned it to
+    // a variable the return type is Unit
+  }
 
   /* Note 1
    * running println(question2()) results in
@@ -154,9 +154,8 @@ object Part1 {
    * Hint: take a peek at part 2 since this question bridges part 1 and part 2
    */
   // TODO: implement the function body
-  def intList(a: Int, b: Int): List[Int] = (a to b).toList // TODO change this method
+  def intList(a: Int, b: Int): List[Int] = (a to b).toList // TODO change this method //!!
 
   // END OF PART 1
 
 }
-	

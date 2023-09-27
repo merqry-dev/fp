@@ -80,7 +80,7 @@ object Part3 {
   /** Q10 (2p)
    * TODO: implement `twice` only using API calls
    */
-  def twiceAPI[A](xs: List[A]): List[A] = {xs}
+  def twiceAPI[A](xs: List[A]): List[A] = xs.flatMap(a => List(a, a))
 
   /** Q11 (2p)
    * TODO: implement `drunkWords` only using API calls
@@ -92,7 +92,7 @@ object Part3 {
   /** Q12 (2p)
    * TODO: implement `myForAll` only using API calls
    */
-  def myForAllAPI[A](xs: List[A], f: A => Boolean): Boolean = {true}
+  def myForAllAPI[A](xs: List[A], f: A => Boolean): Boolean = (xs.size == xs.filter(f).size)
 
   /** Q13 (2p)
    * implement `lastElem` only using API calls
@@ -104,7 +104,7 @@ object Part3 {
   /** Q14 (2p)
    * implement `append` only using API calls
    */
-  def appendAPI[A](xs: List[A], ys: List[A]): List[A] = {xs}
+  def appendAPI[A](xs: List[A], ys: List[A]): List[A] = List.concat(xs,ys)
 
   /** Q15 (2p)
    * implement `intList` (from part 1) only using API calls
