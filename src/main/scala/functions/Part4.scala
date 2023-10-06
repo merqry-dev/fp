@@ -197,7 +197,15 @@ object Part4 {
    */
   // TODO: implement method using Pattern Matching, API calls to standard API or a combination (Hint Hint..)
   // no imports are necessary
-  def secondLargest(xs: List[Int]): Option[Int] = ???
+  def secondLargest(xs: List[Int]): Option[Int] = {
+    val result = xs.filter(x => x != xs.max);
+
+    if (result.nonEmpty) {
+      Some(result.max);
+    } else {
+      None;
+    }
+  }
 
   /** Q18 (5p)
    * Count the number of occurrences of each distinct number
@@ -218,7 +226,7 @@ object Part4 {
    *         distinctAPI(List(1,2,1,2,1,2,3,4,4,4,4,4,4,4,4)) // List(1,2,3,4)
    */
   // TODO: implement `distinct` without using .distinct on the list
-  def distinctAPI[A](xs: List[A]): List[A] = ???
+  def distinctAPI[A](xs: List[A]): List[A] = xs.toSet.toList;
 
   /** Q20 (3p)
    * Special partition takes all numbers, adds one to the negative numbers and checks
@@ -254,7 +262,7 @@ object Part4 {
   // TODO: implement this method
   def determineGoodPlayers(scrabblePlayers: List[(String, List[(String, Int)])]): List[String] = {
 
-    scrabblePlayers.filter(a => a._2.filter(b => b._1.length > 3).size > 0 && a._2.filter(b => b._1.length > 3).size == a._2.size).map(a => a._1)
+    scrabblePlayers.filter(a => a._2.count(b => b._1.length > 3) > 0 && a._2.count(b => b._1.length > 3) == a._2.size).map(a => a._1)
   }
 
   /** Q22 (3p)
@@ -263,7 +271,8 @@ object Part4 {
    * for the above example we expect:
    * List((Ola,7.2), (Burçu,9.0), (Georgios,7.333333333333333))
    */
-  def avgOver7(scrabblePlayers: List[(String, List[(String, Int)])]): List[(String, Double)] = ???
+  def avgOver7(scrabblePlayers: List[(String, List[(String, Int)])]): List[(String, Double)] = scrabblePlayers.flatMap(x => List((x._1, x._2.map(x => x._2.toDouble)))).map(x => (x._1, x._2.sum / x._2.size)).filter(x => x._2 > 7);
+
 
   /** Q23 (5p)
    * Given an anonymised list of students who sport and another list of
@@ -287,7 +296,7 @@ object Part4 {
    */
   def goodSportStudents(studentResults: List[(String, String, Option[Int])], sportStudents: List[String]): List[String] = {
 
-    sportStudents.filter(a => studentResults.filter(b => b._1 == a && b._3.isDefined && b._3.get >= 6) == studentResults.filter(b => b._1 == a))
+    sportStudents.filter(a => studentResults.filter(b => b._1 == a && b._3.isDefined && b._3.get >= 6) == studentResults.filter(b => b._1 == a));
   }
 
   /** Q24 (5p)
@@ -299,7 +308,10 @@ object Part4 {
    * The expected output for this question with the previous students (from Q22)
    * would be: List((f,6.666666666666667), (g,7.0))
    */
-  def avgGradeGoodSportStudents(studentResults: List[(String, String, Option[Int])], sportStudents: List[String]): List[(String, Double)] = ???
+  def avgGradeGoodSportStudents(studentResults: List[(String, String, Option[Int])], sportStudents: List[String]): List[(String, Double)] = {
+    val goodSport = goodSportStudents(studentResults, sportStudents);
+    studentResults.filter(x => goodSport.contains(x._1)).groupBy(_._1).map(x => (x._1, x._2.map(x => x._3.get.asInstanceOf[Double]))).map(x => (x._1, x._2.sum / x._2.size)).toList;
+  }
 
   // END OF PART 4
 }

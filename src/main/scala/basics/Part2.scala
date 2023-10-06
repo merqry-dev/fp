@@ -312,7 +312,7 @@ object Part2 {
       def helper(xs: List[A], ys: Int): List[A] = xs match {
         case a :: tail if ys % 2 == 0 => helper(tail, ys+1)
         case b :: tail if !(ys % 2 == 0) => b :: helper(tail, ys+1)
-        case Nil => Nil
+        case Nil  => Nil
       }
 
       xs match {

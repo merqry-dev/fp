@@ -70,7 +70,10 @@ object Part5A {
   /** Q26 (3p)
    * Output the id, age range and notice preference as a tuple of the patron with the highest number of checkouts
    */
-  def highestCheckouts(xs: List[Array[String]]): Tuple3[Int, String, String] = ???
+  def highestCheckouts(xs: List[Array[String]]): Tuple3[Int, String, String] = {
+    val r = xs.maxBy(x => x(2).toInt)
+    (r(0).toInt, r(4), r(8))
+  }
 
   /** Q27 (3p)
    * Output the patron type and number of patrons as a map and make sure the patrons satisfy the following condition:
